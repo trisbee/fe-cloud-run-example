@@ -1,0 +1,29 @@
+on:
+    push:
+        branches: [master]
+
+jobs:
+  stage:
+    name: 'Stage release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2.3.1
+
+      - name: 'Build Docker image'
+        run: |
+            docker build . --tag eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}
+
+      - name: 'Authenticate into Google Cloud Platform'
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+            service_account_email: ${{ secrets.GCLOUD_EMAIL }}
+            service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: 'Push image to Google Cloud Container Registry'
+        run: docker push eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }}
+
+      - name: 'Install beta commands and deploy on cloud run'
+        run: |
+            gcloud components install beta --quiet
+            gcloud beta run deploy ${{ secrets.GCLOUD_APP_NAME }} --quiet --image eu.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_APP_NAME }} --project ${{ secrets.GCLOUD_PROJECT }} --region europe-west1 --platform managed

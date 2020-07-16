@@ -1,0 +1,19 @@
+{
+  "name": "fe-cloud-run-example",
+  "version": "0.0.1",
+  "description": "demo project for frontend deployment",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trisbee/fe-cloud-run-example.git"
+  },
+  "author": "Michal Landsman",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
