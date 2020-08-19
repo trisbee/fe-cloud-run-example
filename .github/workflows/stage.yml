@@ -6,15 +6,15 @@ jobs:
   stage:
     name: 'Stage release'
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: ahoj
+      SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
     steps:
       - name: 'Checkout'
-        env:
-          PROJECT_NAME: ${{ secrets.STAGE_PROJECT }}
-          SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
         uses: actions/checkout@v2
 
       - run: |
-          echo "${{ PROJECT_NAME }}"
+          echo "${{ env.PROJECT_NAME }}"
 
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
