@@ -6,13 +6,12 @@ jobs:
   stage:
     name: 'Stage release'
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: ${{ secrets.STAGE_PROJECT }}
+      SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
-        env:
-          PROJECT_NAME: ${{ secrets.STAGE_PROJECT }}
-          SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
-
       - run: |
           echo "${{ env.PROJECT_NAME }}"
 
