@@ -9,12 +9,17 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
+        env:
+          PROJECT_NAME: ${{ secrets.STAGE_PROJECT }}
+          SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
+
+      - run: echo $PROJECT_NAME && echo $SERVICE_NAME
 
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
-          project_id: ${{ secrets.STAGE_PROJECT }}
+          project_id: ${{ PROJECT_NAME }}
           service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
           export_default_credentials: true
 
@@ -22,7 +27,7 @@ jobs:
         run: gcloud info
 
       - name: 'Build Docker image'
-        run: gcloud builds submit --tag eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }}:latest
+        run: gcloud builds submit --tag eu.gcr.io/${{ PROJECT_NAME }}/${{ SERVICE_NAME }}:latest
 
       - name: 'Authenticate into Google Cloud Platform'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -31,9 +36,9 @@ jobs:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
       - name: 'Push image to Google Cloud Container Registry'
-        run: docker push eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }}
+        run: docker push eu.gcr.io/${{ PROJECT_NAME }}/${{ SERVICE_NAME }}
 
       - name: 'Install beta commands and deploy on cloud run'
         run: |
           gcloud components install beta --quiet
-          gcloud beta run deploy ${{ secrets.STAGE_SERVICE }} --quiet --image eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }} --project ${{ secrets.STAGE_PROJECT }} --region europe-west1 --platform managed
+          gcloud beta run deploy ${{ SERVICE_NAME }} --quiet --image eu.gcr.io/${{ PROJECT_NAME }}/${{ SERVICE_NAME }} --project ${{ PROJECT_NAME }} --region europe-west1 --platform managed
