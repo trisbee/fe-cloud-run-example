@@ -13,7 +13,8 @@ jobs:
           PROJECT_NAME: ${{ secrets.STAGE_PROJECT }}
           SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
 
-      - run: echo $PROJECT_NAME && echo $SERVICE_NAME
+      - run: |
+          echo "${{ env.PROJECT_NAME }}"
 
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
