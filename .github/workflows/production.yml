@@ -1,10 +1,10 @@
 on:
   push:
-    branches: [stage]
+    branches: [master]
 
 jobs:
   stage:
-    name: 'Stage release'
+    name: 'Production release'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
@@ -12,7 +12,7 @@ jobs:
 
       - name: 'Build Docker image'
         run: |
-          docker build . --tag eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }}:latest
+          docker build . --tag eu.gcr.io/${{ secrets.PRODUCTION_PROJECT }}/${{ secrets.PRODUCTION_SERVICE }}:latest
 
       - name: 'Authenticate into Google Cloud Platform'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -21,9 +21,9 @@ jobs:
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
       - name: 'Push image to Google Cloud Container Registry'
-        run: docker push eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }}
+        run: docker push eu.gcr.io/${{ secrets.PRODUCTION_PROJECT }}/${{ secrets.PRODUCTION_SERVICE }}
 
       - name: 'Install beta commands and deploy on cloud run'
         run: |
           gcloud components install beta --quiet
-          gcloud beta run deploy ${{ secrets.STAGE_SERVICE }} --quiet --image eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }} --project ${{ secrets.STAGE_PROJECT }} --region europe-west1 --platform managed
+          gcloud beta run deploy ${{ secrets.PRODUCTION_SERVICE }} --quiet --image eu.gcr.io/${{ secrets.PRODUCTION_PROJECT }}/${{ secrets.PRODUCTION_SERVICE }} --project ${{ secrets.PRODUCTION_SERVICE }} --region europe-west1 --platform managed
