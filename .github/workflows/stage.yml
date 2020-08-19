@@ -10,18 +10,19 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
 
-      - name: 'Google Cloud'
+      - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
           project_id: ${{ secrets.STAGE_PROJECT }}
           service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
           export_default_credentials: true
-      - run: gcloud info
+
+      - name: 'Google Cloud info'
+        run: gcloud info
 
       - name: 'Build Docker image'
-        run: |
-          docker build . --tag eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }}:latest
+        run: gcloud builds submit --tag eu.gcr.io/${{ secrets.STAGE_PROJECT }}/${{ secrets.STAGE_SERVICE }}:latest
 
       - name: 'Authenticate into Google Cloud Platform'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
