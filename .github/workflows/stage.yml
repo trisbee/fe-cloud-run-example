@@ -7,7 +7,7 @@ jobs:
     name: 'Stage release'
     runs-on: ubuntu-latest
     env:
-      PROJECT_NAME: fe-staging
+      PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example
     steps:
       - name: 'Checkout'
