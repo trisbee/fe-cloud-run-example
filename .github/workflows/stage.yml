@@ -7,14 +7,11 @@ jobs:
     name: 'Stage release'
     runs-on: ubuntu-latest
     env:
-      PROJECT_NAME: ahoj
-      SERVICE_NAME: ${{ secrets.STAGE_SERVICE }})
+      PROJECT_NAME: fe-staging
+      SERVICE_NAME: fe-cloud-run-example
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
-
-      - run: |
-          echo "${{ env.PROJECT_NAME }}"
 
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
