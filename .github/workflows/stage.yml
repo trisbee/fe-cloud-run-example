@@ -8,7 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v2
+
+      - name: 'Google Cloud'
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          project_id: ${{ secrets.STAGE_PROJECT }}
+          service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
+          export_default_credentials: true
+      - run: gcloud info
 
       - name: 'Build Docker image'
         run: |
