@@ -13,7 +13,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
       - run: |
-          echo "${{ env.PROJECT_NAME }}"
+          echo "${{ PROJECT_NAME }}"
 
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
