@@ -9,6 +9,7 @@ jobs:
     env:
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example
+      REGION: europe-west1
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -31,3 +32,6 @@ jobs:
         run: |
           gcloud components install beta --quiet
           gcloud beta run deploy ${{ env.SERVICE_NAME }} --quiet --image eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }} --project ${{ env.PROJECT_NAME }} --region europe-west1 --platform managed
+
+      - name: 'URL address of service'
+        run: gcloud run services describe ${{ env.SERVICE_NAME }} --platform managed --region ${{ env.REGION }} --format 'value(status.url)'
