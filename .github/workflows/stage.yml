@@ -16,7 +16,7 @@ jobs:
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: '290.0.1'
+          version: '306.0.0'
           project_id: ${{ env.PROJECT_NAME }}
           service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
           export_default_credentials: true
