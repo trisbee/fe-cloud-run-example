@@ -27,15 +27,6 @@ jobs:
       - name: 'Build Docker image'
         run: gcloud builds submit --tag eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}:latest
 
-      - name: 'Authenticate into Google Cloud Platform'
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        with:
-          service_account_email: ${{ secrets.GCLOUD_EMAIL }}
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
-
-      - name: 'Push image to Google Cloud Container Registry'
-        run: docker push eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}
-
       - name: 'Install beta commands and deploy on cloud run'
         run: |
           gcloud components install beta --quiet
