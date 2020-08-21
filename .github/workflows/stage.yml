@@ -31,8 +31,14 @@ jobs:
           gcloud auth configure-docker
           docker push ${{ env.DOCKER_IMG }}
 
-      - name: 'Deploy new revision'
-        run:  gcloud run deploy ${{ env.SERVICE_NAME }} --quiet --image ${{ env.DOCKER_IMG }} --project ${{ env.PROJECT_NAME }} --region europe-west1 --platform managed
+      - name: 'Deploy new revision in Google Cloud Run'
+        run:  |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.DOCKER_IMG }} \
+            --project ${{ env.PROJECT_NAME }} \
+            --region ${{ env.REGION }} \
+            --quiet \
+            --platform managed
 
       - name: 'URL address of service'
         run: |
