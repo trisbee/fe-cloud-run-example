@@ -40,4 +40,4 @@ jobs:
           --region ${{ env.REGION }}  \
           --format "value(status.url)" \
         ) \
-        echo $SERVICE_URL
+        #echo $SERVICE_URL
