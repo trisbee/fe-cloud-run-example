@@ -48,3 +48,6 @@ jobs:
             --region ${{ env.REGION }}  \
             --format "value(status.url)" \
           )
+
+      - name: 'Send URL address to PR'
+        run: echo $SERVICE_URL
