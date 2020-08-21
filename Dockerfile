@@ -17,10 +17,10 @@ RUN npm install
 #RUN npm install --only=production
 
 # Bundle app source
-#COPY src ./src
+COPY src ./src
 
-# copy all for this example
-COPY . .
+# copy git for this example
+COPY .git/ ./.git/
 
 
 # Start the server app using Node.js

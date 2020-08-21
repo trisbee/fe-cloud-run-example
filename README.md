@@ -18,3 +18,7 @@ curl -i localhost:3000
 ## Secret variables
 
 - Google Cloud Service Account keys are stored globally via [Organization secrets](https://github.com/organizations/trisbee/settings/secrets). If you have to create new one, you can via [Service Accounts page](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console).
+
+## Reading list
+
+- [Deploy Your Website on Google Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-deploy/index.html#)
