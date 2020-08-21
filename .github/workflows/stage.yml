@@ -39,5 +39,5 @@ jobs:
           --platform managed \
           --region ${{ env.REGION }}  \
           --format "value(status.url)" \
-        )
+        ) \
         echo $SERVICE_URL
