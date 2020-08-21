@@ -4,6 +4,7 @@ on:
 
 jobs:
   stage:
+    if: github.event.pull_request.merged == 'true'
     name: 'Production release'
     runs-on: ubuntu-latest
     steps:
