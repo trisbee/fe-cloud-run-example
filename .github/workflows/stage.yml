@@ -23,14 +23,13 @@ jobs:
           service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
           export_default_credentials: true
 
-      - name: 'see data here'
-        run: ls -la
-
       - name: 'Build Docker image'
         run: docker build --tag ${{ env.DOCKER_IMG }} .
 
       - name: 'Push Docker image to Google Cloud'
-        run: docker push ${{ env.DOCKER_IMG }}
+        run: |
+          gcloud auth configure-docker
+          docker push ${{ env.DOCKER_IMG }}
 
       - name: 'Deploy new revision'
         run:  gcloud run deploy ${{ env.SERVICE_NAME }} --quiet --image eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }} --project ${{ env.PROJECT_NAME }} --region europe-west1 --platform managed

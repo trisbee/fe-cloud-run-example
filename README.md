@@ -1,5 +1,8 @@
 # Frontend Cloud Run project
 
+![.github/workflows/stage.yml](https://github.com/trisbee/fe-cloud-run-example/workflows/.github/workflows/stage.yml/badge.svg?branch=stage)
+
+
 ![{{production deploy}}](https://github.com/trisbee/fe-cloud-run-example/workflows/production/badge.svg)
 ![{{stage deploy}}](https://github.com/trisbee/fe-cloud-run-example/workflows/stage/badge.svg)
 
@@ -21,5 +24,6 @@ curl -i localhost:3000
 
 ## Reading list
 
+- [Google Cloud Run](https://cloud.google.com/run)
 - [Deploy Your Website on Google Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-deploy/index.html)
 - [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
