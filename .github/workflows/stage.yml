@@ -34,9 +34,9 @@ jobs:
 
       - name: 'URL address of service'
         run: |
-        SERVICE_URL=$( \
-          gcloud run services describe ${{ env.SERVICE_NAME }} \
-          --platform managed \
-          --region ${{ env.REGION }}  \
-          --format "value(status.url)" \
-        ) \
+          SERVICE_URL=$( \
+            gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --platform managed \
+            --region ${{ env.REGION }}  \
+            --format "value(status.url)" \
+          )
