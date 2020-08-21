@@ -10,6 +10,7 @@ jobs:
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example
       REGION: europe-west1
+      DOCKER_IMG: eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}:latest
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -22,6 +23,9 @@ jobs:
           service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
           export_default_credentials: true
 
+      - name: 'see data here'
+        run: ls -la
+
       - name: 'Build Docker image'
         run: gcloud builds submit --tag eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}:latest
 
@@ -29,4 +33,11 @@ jobs:
         run:  gcloud run deploy ${{ env.SERVICE_NAME }} --quiet --image eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }} --project ${{ env.PROJECT_NAME }} --region europe-west1 --platform managed
 
       - name: 'URL address of service'
-        run: gcloud run services describe ${{ env.SERVICE_NAME }} --platform managed --region ${{ env.REGION }} --format 'value(status.url)'
+        run: |
+        SERVICE_URL=$( \
+          gcloud run services describe ${{ env.SERVICE_NAME }} \
+          --platform managed \
+          --region ${{ env.REGION }}  \
+          --format "value(status.url)" \
+        )
+        echo $SERVICE_URL
