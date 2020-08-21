@@ -19,5 +19,8 @@ RUN npm install
 # Bundle app source
 COPY src ./src
 
+# only for this demo
+COPY .git ./git
+
 # Start the server app using Node.js
 CMD ["npm", "run", "start"]
