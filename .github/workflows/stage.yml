@@ -40,7 +40,7 @@ jobs:
             --quiet \
             --platform managed
 
-      - name: 'URL address of service'
+      - name: 'URL address of the service'
         id: service
         run: |
           export SERVICE_URL=$( \
@@ -48,8 +48,9 @@ jobs:
             --platform managed \
             --region ${{ env.REGION }}  \
             --format "value(status.url)" \
-          ) \
-          echo "::set-output name=url::$SERVICE_URL"
+          )
+          echo "::set-env name=SERVICE_URL::${SERVICE_URL}"
 
       - name: 'Send URL address to PR'
-        run: echo ${{ steps.service.outputs.url }}
+        run: |
+          echo "SERVICE_URL: ${SERVICE_URL}"
