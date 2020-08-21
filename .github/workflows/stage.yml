@@ -39,4 +39,4 @@ jobs:
           --platform managed \
           --region ${{ env.REGION }}  \
           --format "value(status.url)" \
-        )
+        ) \
