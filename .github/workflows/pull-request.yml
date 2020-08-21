@@ -57,9 +57,17 @@ jobs:
         run: |
           echo "SERVICE_URL: ${SERVICE_URL}"
 
-      - name: 'Comment a pull_request'
-        uses: mb2dev/github-action-comment-pull-request@1.0.0
-        with:
-          message: ${{ SERVICE_URL }}
+#      - name: 'Comment a pull_request'
+#        uses: mb2dev/github-action-comment-pull-request@1.0.0
+#        with:
+#          message: "App running on: ${SERVICE_URL}"
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          reactions: "rocket"
+
+      - name: comment PR
+        uses: unsplash/comment-on-pr@master
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          reactions: "rocket"
+        with:
+          msg: "App running on: ${SERVICE_URL}"
+          check_for_duplicate_msg: false  # OPTIONAL
