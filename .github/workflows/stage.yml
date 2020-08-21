@@ -7,10 +7,10 @@ jobs:
     name: 'Stage release'
     runs-on: ubuntu-latest
     env:
+      REGION: europe-west1
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example
-      REGION: europe-west1
-      DOCKER_IMG: eu.gcr.io/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}:latest
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:latest
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
