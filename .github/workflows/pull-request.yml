@@ -61,5 +61,6 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          append: true
           message: |
-            Release ${{ github.sha }} to <https://${SERVICE_URL}>
+            Release ${{ github.sha }} to ${{ env.SERVICE_URL }}
