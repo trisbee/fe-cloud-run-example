@@ -60,6 +60,6 @@ jobs:
       - name: 'Comment a pull_request'
         uses: mb2dev/github-action-comment-pull-request@1.0.0
         with:
-          message: ${SERVICE_URL}
+          message: ${{ SERVICE_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           reactions: "rocket"
