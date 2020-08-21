@@ -48,7 +48,7 @@ jobs:
             --platform managed \
             --region ${{ env.REGION }}  \
             --format "value(status.url)" \
-          )
+          )"
 
       - name: 'Send URL address to PR'
         run: echo ${{steps.service.outputs.url}}
