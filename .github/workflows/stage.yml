@@ -41,8 +41,9 @@ jobs:
             --platform managed
 
       - name: 'URL address of service'
+        id: service
         run: |
-          SERVICE_URL=$( \
+            echo "::set-output name=url::=$( \
             gcloud run services describe ${{ env.SERVICE_NAME }} \
             --platform managed \
             --region ${{ env.REGION }}  \
@@ -50,4 +51,4 @@ jobs:
           )
 
       - name: 'Send URL address to PR'
-        run: echo ${{ env.SERVICE_URL }}
+        run: echo ${{steps.service.outputs.url}}
