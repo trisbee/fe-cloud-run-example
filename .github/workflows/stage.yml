@@ -50,4 +50,4 @@ jobs:
           )
 
       - name: 'Send URL address to PR'
-        run: echo $SERVICE_URL
+        run: echo ${{ env.SERVICE_URL }}
