@@ -26,3 +26,8 @@ curl -i localhost:3000
 - [Google Container Registry](https://cloud.google.com/container-registry/docs)
 - [Deploy Your Website on Google Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-deploy/index.html)
 - duumy change
+
+## Good to know
+
+- Service name may only start with a letter and contain up to 63 lowercase letters, numbers or hyphens
+- [How to pick region](https://cloud.google.com/run/docs/locations)
