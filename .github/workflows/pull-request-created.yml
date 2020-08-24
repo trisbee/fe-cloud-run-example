@@ -37,16 +37,16 @@ jobs:
       - name: 'Deploy new revision in Google Cloud Run'
         run:  |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
-            --image=${{ env.DOCKER_IMG }} \
-            --project=${{ env.PROJECT_NAME }} \
-            --region=${{ env.REGION }} \
-            --platform=managed \
+            --image ${{ env.DOCKER_IMG }} \
+            --project ${{ env.PROJECT_NAME }} \
+            --region ${{ env.REGION }} \
             --port ${{ env.APP_PORT }} \
             --max-instances=5 \
             --cpu=1000m \
             --memory=256Mi \
             --allow-unauthenticated \
-            --quiet \
+            --platform managed \
+            --verbosity debug
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
