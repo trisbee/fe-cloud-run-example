@@ -12,7 +12,7 @@ jobs:
       REGION: europe-west1
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example-pr-${{ github.event.number }}
-      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:${{ github.event.number }}
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:${{ github.event.number }}-${{ github.sha }}
       APP_PORT: 3000
     steps:
       - name: 'Checkout'
