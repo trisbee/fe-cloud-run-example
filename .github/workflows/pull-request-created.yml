@@ -46,7 +46,7 @@ jobs:
             --max-instances=5 \
             --cpu=1000m \
             --memory=256Mi \
-            --allow-unauthenticated=true \
+            --allow-unauthenticated \
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
