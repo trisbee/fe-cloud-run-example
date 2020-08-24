@@ -41,7 +41,7 @@ jobs:
             --project=${{ env.PROJECT_NAME }} \
             --revision-suffix=${{ github.sha }}
             --region=${{ env.REGION }} \
-            --platform=managed \
+            --platform managed \
             --port=${{ env.APP_PORT }} \
             --max-instances=5 \
             --cpu=1000m \
