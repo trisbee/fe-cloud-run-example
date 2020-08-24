@@ -13,6 +13,7 @@ jobs:
       REGION: europe-west1
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example-pr-${{ github.event.number }}
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:${{ github.event.number }}
     steps:
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -29,6 +30,9 @@ jobs:
             --region=${{ env.REGION }} \
             --platform=managed \
             --quiet \
+
+      - name: 'Remove Docker image from Cloud'
+        run: gcloud compute images delete ${{ env.DOCKER_IMG }}
 
       - name: 'Send URL address to PR as comment'
         uses: marocchino/sticky-pull-request-comment@v1
