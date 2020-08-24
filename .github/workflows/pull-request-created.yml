@@ -5,8 +5,8 @@ on:
       - stage
 
 jobs:
-  pull-request:
-    name: 'Pull request'
+  pull-request-created:
+    name: 'Pull request created'
     runs-on: ubuntu-latest
     env:
       REGION: europe-west1

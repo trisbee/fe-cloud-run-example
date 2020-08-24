@@ -1,0 +1,44 @@
+on:
+  pull_request:
+    branches:
+      - master
+      - stage
+    types: [closed]
+
+jobs:
+  pull-request-closed:
+    name: 'Pull request closed'
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    env:
+      REGION: europe-west1
+      PROJECT_NAME: trisbee-staging
+      SERVICE_NAME: fe-cloud-run-example-pr-${{ github.event.number }}
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:latest
+      APP_PORT: 3000
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Google Cloud setup'
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '306.0.0'
+          project_id: ${{ env.PROJECT_NAME }}
+          service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: 'Remove temporary service from Google Cloud'
+        run:  |
+          gcloud run services delete ${{ env.SERVICE_NAME }} \
+            --image ${{ env.DOCKER_IMG }} \
+            --project ${{ env.PROJECT_NAME }} \
+            --region ${{ env.REGION }}
+
+      - name: 'Send URL address to PR as comment'
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          append: true
+          message: |
+            Service URL ${{ env.SERVICE_URL }} deleted.
