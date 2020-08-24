@@ -46,8 +46,7 @@ jobs:
             --max-instances=5 \
             --cpu=1000m \
             --memory=256Mi \
-            --allow-unauthenticated \
-            --labels=[github_pull_request_id=${{ github.event.number }}]
+            --allow-unauthenticated
 
 
       - name: 'URL address of the service'
