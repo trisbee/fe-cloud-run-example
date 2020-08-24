@@ -20,7 +20,8 @@ curl -i localhost:3000
 
 ## Reading list
 
+- [Google Cloud Run Deploy](https://cloud.google.com/sdk/gcloud/reference/run/deploy)
+- [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - [Google Cloud Run](https://cloud.google.com/run)
 - [Google Container Registry](https://cloud.google.com/container-registry/docs)
 - [Deploy Your Website on Google Cloud Run](https://codelabs.developers.google.com/codelabs/cloud-run-deploy/index.html)
-- [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
