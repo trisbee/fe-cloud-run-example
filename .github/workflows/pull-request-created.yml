@@ -39,7 +39,6 @@ jobs:
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --image=${{ env.DOCKER_IMG }} \
             --project=${{ env.PROJECT_NAME }} \
-            --revision-suffix=${{ github.sha }} \
             --region=${{ env.REGION }} \
             --platform=managed \
             --port ${{ env.APP_PORT }} \
