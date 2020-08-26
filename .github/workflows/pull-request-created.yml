@@ -51,9 +51,9 @@ jobs:
       - name: 'Allow unauthenticated access to service URL'
         run: |
           gcloud run services add-iam-policy-binding ${{ env.SERVICE_NAME }} \
-          --region=${{ env.REGION }} \
-          --member="allUsers" \
-          --role="roles/run.invoker"
+            --region=${{ env.REGION }} \
+            --member="allUsers" \
+            --role="roles/run.invoker"
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
