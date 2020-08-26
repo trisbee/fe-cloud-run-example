@@ -46,7 +46,7 @@ jobs:
             --memory=256Mi \
             --allow-unauthenticated \
             --platform managed \
-            --verbosity debug -y
+            --verbosity=debug
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
