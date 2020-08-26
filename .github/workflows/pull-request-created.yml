@@ -36,12 +36,6 @@ jobs:
 
       - name: 'Deploy new revision in Google Cloud Run'
         run:  |
-          gcloud beta run services add-iam-policy-binding \
-          --region=${{ env.REGION }} \
-          --member=allUsers \
-          --role=roles/run.invoker \
-          ${{ env.SERVICE_NAME }} \
-
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --image ${{ env.DOCKER_IMG }} \
             --project ${{ env.PROJECT_NAME }} \
@@ -53,6 +47,13 @@ jobs:
             --allow-unauthenticated \
             --platform managed \
             --verbosity=debug
+          
+      - name: 'Allow unauthenticated access to service URL'
+        run: |
+          gcloud run services add-iam-policy-binding ${{ env.SERVICE_NAME }} \
+          --region=${{ env.REGION }} \
+          --member="allUsers" \
+          --role="roles/run.invoker"
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
