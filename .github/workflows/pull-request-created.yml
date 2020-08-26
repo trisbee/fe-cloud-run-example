@@ -53,7 +53,8 @@ jobs:
           gcloud run services add-iam-policy-binding ${{ env.SERVICE_NAME }} \
             --region=${{ env.REGION }} \
             --member="allUsers" \
-            --role="roles/run.invoker"
+            --role="roles/run.invoker" \
+            --platform managed
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
