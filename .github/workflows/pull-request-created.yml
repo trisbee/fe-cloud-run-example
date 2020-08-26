@@ -36,7 +36,7 @@ jobs:
 
       - name: 'Deploy new revision in Google Cloud Run'
         run:  |
-          gcloud run deploy ${{ env.SERVICE_NAME }} \
+          gcloud beta run deploy ${{ env.SERVICE_NAME }} \
             --image ${{ env.DOCKER_IMG }} \
             --project ${{ env.PROJECT_NAME }} \
             --region ${{ env.REGION }} \
@@ -46,7 +46,7 @@ jobs:
             --memory=256Mi \
             --allow-unauthenticated \
             --platform managed \
-            --verbosity debug
+            --verbosity debug -y
 
       - name: 'Get URL address of the service from Google Cloud'
         id: service
