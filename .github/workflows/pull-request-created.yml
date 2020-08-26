@@ -36,6 +36,12 @@ jobs:
 
       - name: 'Deploy new revision in Google Cloud Run'
         run:  |
+          gcloud beta run services add-iam-policy-binding \
+          --region=europe-west1 \
+          --member=allUsers \
+          --role=roles/run.invoker \
+          ${{ env.SERVICE_NAME }} \
+
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --image ${{ env.DOCKER_IMG }} \
             --project ${{ env.PROJECT_NAME }} \
