@@ -47,7 +47,7 @@ jobs:
             --allow-unauthenticated \
             --platform managed \
             --verbosity=debug
-          
+
       - name: 'Allow unauthenticated access to service URL'
         run: |
           gcloud run services add-iam-policy-binding ${{ env.SERVICE_NAME }} \
