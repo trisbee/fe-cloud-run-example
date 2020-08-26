@@ -37,7 +37,7 @@ jobs:
       - name: 'Deploy new revision in Google Cloud Run'
         run:  |
           gcloud beta run services add-iam-policy-binding \
-          --region=europe-west1 \
+          --region=${{ env.REGION }} \
           --member=allUsers \
           --role=roles/run.invoker \
           ${{ env.SERVICE_NAME }} \
