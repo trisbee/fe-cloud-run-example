@@ -12,7 +12,7 @@ jobs:
       REGION: europe-west1
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example-pr-${{ github.event.number }}
-      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:${{ github.event.number }}-${{ github.sha }}
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:PR-${{ github.event.number }}-${{ github.sha }}
       APP_PORT: 3000
     steps:
       - name: 'Checkout'
@@ -36,7 +36,7 @@ jobs:
 
       - name: 'Deploy new revision in Google Cloud Run'
         run:  |
-          gcloud beta run deploy ${{ env.SERVICE_NAME }} \
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
             --image ${{ env.DOCKER_IMG }} \
             --project ${{ env.PROJECT_NAME }} \
             --region ${{ env.REGION }} \
