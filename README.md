@@ -16,7 +16,13 @@ curl -i localhost:3000
 
 ## Secret variables
 
-- Google Cloud Service Account keys are stored globally via [Organization secrets](https://github.com/organizations/trisbee/settings/secrets). If you have to create new one, you can via [Service Accounts page](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console).
+Google Cloud Service Account keys are stored globally via [Organization secrets](https://github.com/organizations/trisbee/settings/secrets).
+
+Keys:
+- FE_PRODUCTION_GCP_SA_KEY
+- FE_STAGE_GCP_SA_KEY
+
+If you have to create new one, you can via [Service Accounts page](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console).
 
 ## Reading list
 
