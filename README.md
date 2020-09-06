@@ -22,6 +22,9 @@ Keys:
 - FE_PRODUCTION_GCP_SA_KEY
 - FE_STAGE_GCP_SA_KEY
 
+The Service runner must have permission to edit IAM permissions to make the URL public. 
+We recommend adding **Security Admin**, **Project IAM Admin**, **Editor** roles respectively in IAM Project Settings.
+
 If you have to create new one, you can via [Service Accounts page](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console).
 
 ## Reading list
