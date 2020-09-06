@@ -1,7 +1,6 @@
 // dependencies
 require('dotenv');
 const express = require('express');
-const git = require('git-last-commit');
 const packageData = require('../package');
 const fs = require('fs');
 const path = require('path');

@@ -15,6 +15,5 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "git-last-commit": "^1.0.0"
   }
 }
