@@ -17,7 +17,7 @@ const GC_project = process.env.K_PROJECT || 'not set';
 const GC_region = process.env.K_REGION || 'not set';
 const cloudURL = `https://console.cloud.google.com/run/detail/${GC_region}/${GC_service}/revisions&project=${GC_project}`;
 
-let commitMessage = fs.readFileSync(path.join(__dirname, 'commit.json'), {encoding: 'utf8', flag: 'r'})
+let commitMessage = fs.readFileSync(path.join(__dirname, 'commit.txt'), {encoding: 'utf8', flag: 'r'});
 
 
 // app
