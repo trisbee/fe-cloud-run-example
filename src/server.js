@@ -3,6 +3,8 @@ require('dotenv');
 const express = require('express');
 const git = require('git-last-commit');
 const packageData = require('../package');
+const fs = require('fs');
+const path = require('path');
 
 // settings
 const NODE_ENV = process.env.NODE_ENV;
@@ -16,14 +18,7 @@ const GC_project = process.env.K_PROJECT || 'not set';
 const GC_region = process.env.K_REGION || 'not set';
 const cloudURL = `https://console.cloud.google.com/run/detail/${GC_region}/${GC_service}/revisions&project=${GC_project}`;
 
-let commitData = {};
-git.getLastCommit((err, commit) => {
-    commitData = JSON.stringify( commit, null, 2 );
-
-    if(err){
-        console.error('git reading problem', err);
-    }
-});
+let commitMessage = fs.readFileSync(path.join(__dirname, 'commit.json'), {encoding: 'utf8', flag: 'r'})
 
 
 // app
@@ -41,7 +36,7 @@ app.get('/', (req, res) => {
     </ul>
     
     <h2>GIT data:</h2>
-    <pre>${commitData}</pre>
+    <pre>${commitMessage}</pre>
     `;
 
     res.send(response);

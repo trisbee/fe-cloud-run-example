@@ -18,6 +18,10 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
 
+      - name: 'Saves last commit info (Optional)'
+        run: |
+          git log --pretty=format:"%h%x09%an%x09%ad%x09%s" -n 1 > ./src/commit.json
+
       - name: 'Google Cloud setup'
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
