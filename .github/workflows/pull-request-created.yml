@@ -1,0 +1,80 @@
+on:
+  pull_request:
+    branches:
+      - master
+      - stage
+
+jobs:
+  pull-request-created:
+    name: 'Pull request created'
+    runs-on: ubuntu-latest
+    env:
+      REGION: europe-west1
+      PROJECT_NAME: trisbee-staging
+      SERVICE_NAME: fe-cloud-run-example-pr-${{ github.event.number }}
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:PR-${{ github.event.number }}-${{ github.sha }}
+      APP_PORT: 3000
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Saves last commit info (Optional)'
+        run: |
+          git log --pretty=format:"%h%x09%an%x09%ad%x09%s" -n 1 > ./src/commit.txt
+
+      - name: 'Google Cloud setup'
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '306.0.0'
+          project_id: ${{ env.PROJECT_NAME }}
+          service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: 'Build Docker image'
+        run: docker build --tag ${{ env.DOCKER_IMG }} .
+
+      - name: 'Push Docker image to Google Cloud'
+        run: |
+          gcloud auth configure-docker
+          docker push ${{ env.DOCKER_IMG }}
+
+      - name: 'Deploy new revision in Google Cloud Run'
+        run:  |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.DOCKER_IMG }} \
+            --project ${{ env.PROJECT_NAME }} \
+            --region ${{ env.REGION }} \
+            --port ${{ env.APP_PORT }} \
+            --max-instances=5 \
+            --cpu=1000m \
+            --memory=256Mi \
+            --allow-unauthenticated \
+            --platform managed \
+            --verbosity=debug
+
+      - name: 'Allow unauthenticated access to service URL'
+        run: |
+          gcloud run services add-iam-policy-binding ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --member="allUsers" \
+            --role="roles/run.invoker" \
+            --platform managed
+
+      - name: 'Get URL address of the service from Google Cloud'
+        id: service
+        run: |
+          export SERVICE_URL=$( \
+            gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --platform managed \
+            --region ${{ env.REGION }}  \
+            --format "value(status.url)" \
+          )
+          echo "::set-env name=SERVICE_URL::${SERVICE_URL}"
+
+      - name: 'Send URL address to PR as comment'
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          append: true
+          message: |
+            Release ${{ github.sha }} to ${{ env.SERVICE_URL }}
