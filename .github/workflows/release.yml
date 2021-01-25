@@ -20,7 +20,7 @@ jobs:
         uses: WyriHaximus/github-action-get-previous-tag@v1
 
       - name: 'Google Cloud setup'
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@master
         with:
           version: '306.0.0'
           project_id: ${{ env.PROJECT_NAME }}

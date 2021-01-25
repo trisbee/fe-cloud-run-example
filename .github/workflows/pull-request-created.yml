@@ -23,7 +23,7 @@ jobs:
           git log --pretty=format:"%h%x09%an%x09%ad%x09%s" -n 1 > ./src/commit.txt
 
       - name: 'Google Cloud setup'
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@master
         with:
           version: '306.0.0'
           project_id: ${{ env.PROJECT_NAME }}

@@ -16,7 +16,7 @@ jobs:
       DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:${{ github.event.number }}
     steps:
       - name: 'Google Cloud setup'
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@master
         with:
           version: '306.0.0'
           project_id: ${{ env.PROJECT_NAME }}
