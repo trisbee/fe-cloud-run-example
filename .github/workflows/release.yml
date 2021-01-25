@@ -12,6 +12,7 @@ jobs:
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example
       DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:latest
+      APP_PORT: 3000
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v2
