@@ -11,6 +11,7 @@ jobs:
     env:
       REGION: europe-west1
       PROJECT_NAME: trisbee-staging
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       SERVICE_NAME: fe-cloud-run-example-pr-${{ github.event.number }}
       DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:PR-${{ github.event.number }}-${{ github.sha }}
       APP_PORT: 3000

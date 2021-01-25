@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGION: europe-west1
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       PROJECT_NAME: trisbee-staging
       SERVICE_NAME: fe-cloud-run-example
       DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:latest
