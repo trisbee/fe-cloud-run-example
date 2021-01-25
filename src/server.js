@@ -18,7 +18,13 @@ const GC_region = process.env.K_REGION || 'not set';
 const RELEASE_VERSION = process.env.RELEASE_VERSION || 'not set';
 const cloudURL = `https://console.cloud.google.com/run/detail/${GC_region}/${GC_service}/revisions&project=${GC_project}`;
 
-let commitMessage = fs.readFileSync(path.join(__dirname, 'commit.txt'), {encoding: 'utf8', flag: 'r'});
+
+
+let commitMessage = 'not set';
+let commitFilePath = path.join(__dirname, 'commit.txt');
+if (fs.existsSync(commitFilePath)) {
+    commitMessage = fs.readFileSync(commitFilePath, {encoding: 'utf8', flag: 'r'});
+}
 
 
 // app
@@ -37,7 +43,9 @@ app.get('/', (req, res) => {
     
     <h2>GIT data:</h2>
     <pre>${commitMessage}</pre>
-    <h3>${RELEASE_VERSION}</h3>
+    
+    <h2>Release:</h2>
+    <prev${RELEASE_VERSION}</h3>
     `;
 
     res.send(response);

@@ -45,5 +45,6 @@ jobs:
             --image ${{ env.DOCKER_IMG }} \
             --project ${{ env.PROJECT_NAME }} \
             --region ${{ env.REGION }} \
+            --port ${{ env.APP_PORT }} \
             --quiet \
             --platform managed
