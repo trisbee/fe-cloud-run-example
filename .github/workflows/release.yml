@@ -31,7 +31,7 @@ jobs:
 
       - name: 'Build Docker image'
         env:
-          RELEASE_VERSION: ${{ steps.previoustag.outsputs.tag }}
+          RELEASE_VERSION: ${{ steps.previoustag.outputs.tag }}
         run: docker build --tag ${{ env.DOCKER_IMG }} .
 
       - name: 'Push Docker image to Google Cloud'
