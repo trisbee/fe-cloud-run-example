@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
     <pre>${commitMessage}</pre>
     
     <h2>Release:</h2>
-    <prev${RELEASE_VERSION}</h3>
+    <prev>${RELEASE_VERSION}</prev>
     `;
 
     res.send(response);
