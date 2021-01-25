@@ -1,0 +1,47 @@
+on:
+  release:
+    types: [published]
+
+jobs:
+  stage:
+    name: 'Production release'
+    runs-on: ubuntu-latest
+    env:
+      REGION: europe-west1
+      PROJECT_NAME: trisbee-staging
+      SERVICE_NAME: fe-cloud-run-example
+      DOCKER_IMG: eu.gcr.io/trisbee-staging/fe-cloud-run-example:latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
+      - name: 'Google Cloud setup'
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '306.0.0'
+          project_id: ${{ env.PROJECT_NAME }}
+          service_account_key: ${{ secrets.FE_STAGE_GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: 'Build Docker image'
+        env:
+          RELEASE_VERSION: ${{ steps.previoustag.outsputs.tag }}
+        run: docker build --tag ${{ env.DOCKER_IMG }} .
+
+      - name: 'Push Docker image to Google Cloud'
+        run: |
+          gcloud auth configure-docker
+          docker push ${{ env.DOCKER_IMG }}
+
+      - name: 'Deploy new revision in Google Cloud Run'
+        run:  |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.DOCKER_IMG }} \
+            --project ${{ env.PROJECT_NAME }} \
+            --region ${{ env.REGION }} \
+            --quiet \
+            --platform managed
