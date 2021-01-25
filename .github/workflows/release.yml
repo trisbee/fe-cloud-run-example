@@ -45,7 +45,7 @@ jobs:
             --image ${{ env.DOCKER_IMG }} \
             --project ${{ env.PROJECT_NAME }} \
             --region ${{ env.REGION }} \
-            --set-env-vars RELEASE_VERSION=${{ steps.previoustag.outputs.tag }}
+            --set-env-vars RELEASE_VERSION=${{ steps.previoustag.outputs.tag }} \
             --port ${{ env.APP_PORT }} \
             --quiet \
             --platform managed
