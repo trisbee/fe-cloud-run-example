@@ -32,7 +32,7 @@ jobs:
             --quiet \
 
       - name: 'Remove Docker image from Cloud'
-        run: gcloud compute images delete ${{ env.DOCKER_IMG }}
+        run: gcloud container images delete ${{ env.DOCKER_IMG }}
 
       - name: 'Send URL address to PR as comment'
         uses: marocchino/sticky-pull-request-comment@v1
