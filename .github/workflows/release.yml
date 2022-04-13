@@ -48,4 +48,12 @@ jobs:
             --set-env-vars RELEASE_VERSION=${{ steps.previoustag.outputs.tag }} \
             --port ${{ env.APP_PORT }} \
             --quiet \
+            --allow-unauthenticated \
+            --platform managed
+
+      - name: 'Manage traffic in Google Cloud Run'
+        run:  |
+          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+            --to-latest \
+            --region ${{ env.REGION }} \
             --platform managed
